@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMinhasCompras.Views.ListaProduto"
+             Title="Minhas Compras">  <!-- Define o título da página como "Minhas Compras" -->
+
+    <ContentPage.ToolbarItems>
+        <!-- Adiciona um item de toolbar chamado "Somar", que chama o evento "ToolbarItem_Clicked_1" ao ser clicado -->
+        <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1" />
+        <!-- Adiciona um item de toolbar chamado "Adicionar", que chama o evento "ToolbarItem_Clicked" ao ser clicado -->
+        <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    
+    <VerticalStackLayout>
+        <!-- Barra de pesquisa com o nome "txt_search", exibindo um placeholder "Busca de Produtos" -->
+        <!-- O evento "TextChanged" é chamado ao alterar o texto da pesquisa -->
+        <SearchBar x:Name="txt_search" 
+                   Placeholder="Busca de Produtos"
+                   TextChanged="txt_search_TextChanged"/>
+        
+        <!-- Lista de produtos, definida como "lst_produtos" -->
+        <!-- O evento "ItemSelected" é chamado ao selecionar um item da lista -->
+        <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
+            <!-- Cabeçalho da lista exibindo os títulos das colunas (ID, Descrição, Preço, Quantidade e Total) -->
+            <ListView.Header>
+                <Grid ColumnDefinitions="*, *, *, *, *">
+                    <Label Grid.Column="0" Text="ID" />
+                    <Label Grid.Column="1" Text="Descrição" />
+                    <Label Grid.Column="2" Text="Preço" />
+                    <Label Grid.Column="3" Text="Qnt" />
+                    <Label Grid.Column="4" Text="Total" />
+                </Grid>
+            </ListView.Header>
+            
+            <!-- Define o modelo de dados para os itens da lista -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <!-- Adiciona uma ação de contexto (MenuItem) que aparece ao deslizar o item na lista -->
+                        <!-- O MenuItem "Remover" chama o evento "MenuItem_Clicked" -->
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Remover" Clicked="MenuItem_Clicked" />
+                        </ViewCell.ContextActions>
+
+                        <!-- Estrutura de exibição dos dados do produto dentro de um grid com 5 colunas -->
+                        <Grid ColumnDefinitions="*, *, *, *, *">
+                            <Label Grid.Column="0" Text="{Binding Id}" />  <!-- Exibe o ID do produto -->
+                            <Label Grid.Column="1" Text="{Binding Descricao}" />  <!-- Exibe a descrição do produto -->
+                            <Label Grid.Column="2" Text="{Binding Preco}" />  <!-- Exibe o preço do produto -->
+                            <Label Grid.Column="3" Text="{Binding Quantidade}" />  <!-- Exibe a quantidade do produto -->
+                            <Label Grid.Column="4" Text="{Binding Total}" />  <!-- Exibe o total (preço * quantidade) -->
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
